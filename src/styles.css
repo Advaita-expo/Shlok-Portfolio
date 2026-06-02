@@ -798,6 +798,89 @@ svg {
   right: 0;
   top: 50%;
   height: 1px;
+
+/* Responsive / Mobile adjustments */
+@media (max-width: 900px) {
+  .site-nav {
+    padding: 12px 18px;
+    font-size: 0.92rem;
+  }
+
+  .nav-cluster {
+    gap: 18px;
+  }
+
+  .home-mark {
+    width: 40px;
+    height: 44px;
+    top: 6px;
+  }
+
+  .gear-control,
+  .shift-control {
+    display: none;
+  }
+
+  .pixel-cat-sweep {
+    display: none;
+  }
+
+  .cat-wrap {
+    width: 100%;
+    min-width: auto;
+    margin-top: 0;
+    padding: 0 16px;
+  }
+
+  .hero-type {
+    padding: 10vh 4vw;
+  }
+
+  .hero-type h1,
+  .page-shell h1 {
+    font-size: clamp(2.4rem, 10vw, 6rem);
+    line-height: 1;
+  }
+
+  .split-panel {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 10vh 4vw;
+  }
+
+  .flight-copy {
+    min-width: auto;
+  }
+
+  .thanks-stage {
+    width: 100%;
+    padding: 6vh 4vw;
+  }
+
+  body {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-nav {
+    padding: 10px 12px;
+    font-size: 0.88rem;
+  }
+
+  .hero-type h1,
+  .page-shell h1 {
+    font-size: clamp(1.8rem, 12.5vw, 4.2rem);
+  }
+
+  .intro-lines {
+    font-size: 1rem;
+  }
+
+  .split-panel {
+    padding: 8vh 3vw;
+  }
+}
   background: linear-gradient(90deg, transparent, var(--thank-color), transparent);
   box-shadow: 0 0 22px color-mix(in srgb, var(--thank-color) 48%, transparent);
   opacity: 0.36;
