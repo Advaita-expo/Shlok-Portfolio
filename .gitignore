@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+portfolio-*.png
+reference-*.png
+jaguar-*.png
+cat-*.png
+canvas-*.png
