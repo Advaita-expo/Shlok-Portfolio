@@ -767,6 +767,13 @@ function useFlightBoard(): FlightBoardState {
 }
 
 function SiteNav({ page, navigate }: { page: Page; navigate: (item: NavItem) => void }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNavigate = (item: NavItem) => {
+    setMenuOpen(false);
+    navigate(item);
+  };
+
   return (
     <header className="site-nav">
       <div className="nav-cluster">
@@ -777,7 +784,7 @@ function SiteNav({ page, navigate }: { page: Page; navigate: (item: NavItem) => 
             key={item.path}
             onClick={(event) => {
               event.preventDefault();
-              navigate(item);
+              handleNavigate(item);
             }}
           >
             {item.label}
@@ -792,13 +799,44 @@ function SiteNav({ page, navigate }: { page: Page; navigate: (item: NavItem) => 
             key={item.path}
             onClick={(event) => {
               event.preventDefault();
-              navigate(item);
+              handleNavigate(item);
             }}
           >
             {item.label}
           </a>
         ))}
       </div>
+
+      <button
+        className="mobile-hamburger"
+        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        onClick={() => setMenuOpen((s) => !s)}
+      >
+        {menuOpen ? '✕' : '☰'}
+      </button>
+
+      {menuOpen && (
+        <div
+          className="mobile-nav-overlay"
+          onClick={() => setMenuOpen(false)}
+        >
+          <nav onClick={(e) => e.stopPropagation()}>
+            {[...navLeft, ...navRight, raceNav, homeNav].map((item) => (
+              <a
+                key={item.path}
+                href={item.path}
+                className={page === item.page ? 'is-active' : ''}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate(item);
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

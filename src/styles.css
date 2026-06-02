@@ -881,6 +881,67 @@ svg {
     padding: 8vh 3vw;
   }
 }
+
+/* Mobile nav hamburger and overlay */
+.mobile-hamburger {
+  display: none;
+  border: 1px solid rgba(243, 240, 234, 0.12);
+  background: rgba(0,0,0,0.36);
+  color: var(--paper);
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  display: grid;
+  place-items: center;
+  z-index: 45;
+}
+
+@media (max-width: 720px) {
+  .nav-cluster,
+  .nav-cluster-right {
+    display: none;
+  }
+
+  .mobile-hamburger {
+    display: grid;
+  }
+
+  .site-nav {
+    padding: 12px 16px;
+    justify-content: space-between;
+  }
+
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(3,3,3,0.98);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .mobile-nav-overlay nav {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .mobile-nav-overlay a {
+    color: var(--paper);
+    font-size: 1.25rem;
+    padding: 10px 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .mobile-nav-overlay a.is-active {
+    color: var(--blue);
+  }
+}
   background: linear-gradient(90deg, transparent, var(--thank-color), transparent);
   box-shadow: 0 0 22px color-mix(in srgb, var(--thank-color) 48%, transparent);
   opacity: 0.36;
