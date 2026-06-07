@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, MutableRefObject, ReactNode } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import type * as ThreeNamespace from 'three';
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -1276,6 +1277,7 @@ function Projects() {
 function Playground({ charged, lookRef }: { charged: boolean; lookRef: MutableRefObject<LookState> }) {
   return (
     <PageShell label="PLAYGROUND" title="Research, experiments, and controlled chaos.">
+      <ThreeSystemsScene />
       <div className="playground-grid">
         <div className="mini-cat-card">
           <JaguarCanvas charged={charged} lookRef={lookRef} compact />
@@ -1292,6 +1294,213 @@ function Playground({ charged, lookRef }: { charged: boolean; lookRef: MutableRe
         </div>
       </div>
     </PageShell>
+  );
+}
+
+function ThreeSystemsScene() {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    let disposed = false;
+    let animationFrame = 0;
+    let renderer: ThreeNamespace.WebGLRenderer | null = null;
+    let scene: ThreeNamespace.Scene | null = null;
+    let camera: ThreeNamespace.PerspectiveCamera | null = null;
+    let resizeObserver: ResizeObserver | null = null;
+    const pointer = { x: 0, y: 0 };
+
+    const start = async () => {
+      const canvas = canvasRef.current;
+      const wrap = wrapRef.current;
+      if (!canvas || !wrap) return;
+
+      const THREE = await import('three');
+      if (disposed) return;
+
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        canvas,
+        powerPreference: 'high-performance',
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x030303, 6, 18);
+
+      camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(0, 0.15, 8.4);
+
+      const root = new THREE.Group();
+      const coreGroup = new THREE.Group();
+      const orbitGroup = new THREE.Group();
+      const nodeGroup = new THREE.Group();
+      scene.add(root);
+      root.add(coreGroup, orbitGroup, nodeGroup);
+
+      const cyan = new THREE.Color('#22afff');
+      const paper = new THREE.Color('#f3f0ea');
+
+      const coreGeometry = new THREE.IcosahedronGeometry(1.55, 1);
+      const coreWire = new THREE.WireframeGeometry(coreGeometry);
+      const coreMaterial = new THREE.LineBasicMaterial({
+        color: paper,
+        transparent: true,
+        opacity: 0.58,
+      });
+      const core = new THREE.LineSegments(coreWire, coreMaterial);
+      coreGroup.add(core);
+
+      const glowMaterial = new THREE.MeshBasicMaterial({
+        color: cyan,
+        transparent: true,
+        opacity: 0.08,
+        wireframe: true,
+      });
+      const glow = new THREE.Mesh(new THREE.IcosahedronGeometry(2.35, 1), glowMaterial);
+      coreGroup.add(glow);
+
+      const ringMaterial = new THREE.LineBasicMaterial({
+        color: cyan,
+        transparent: true,
+        opacity: 0.28,
+      });
+      [0, 1, 2].forEach((ringIndex) => {
+        const ring = new THREE.LineSegments(
+          new THREE.WireframeGeometry(new THREE.TorusGeometry(2.55 + ringIndex * 0.58, 0.008, 8, 96)),
+          ringMaterial.clone(),
+        );
+        ring.rotation.x = Math.PI / (2.7 + ringIndex * 0.25);
+        ring.rotation.y = ringIndex * 0.72;
+        orbitGroup.add(ring);
+      });
+
+      const positions = new Float32Array(900);
+      for (let i = 0; i < positions.length; i += 3) {
+        const radius = 4.8 + Math.random() * 5.6;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        positions[i] = radius * Math.sin(phi) * Math.cos(theta);
+        positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.62;
+        positions[i + 2] = radius * Math.cos(phi);
+      }
+      const particleGeometry = new THREE.BufferGeometry();
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particles = new THREE.Points(
+        particleGeometry,
+        new THREE.PointsMaterial({
+          color: cyan,
+          opacity: 0.42,
+          size: 0.024,
+          transparent: true,
+        }),
+      );
+      root.add(particles);
+
+      const nodeGeometry = new THREE.SphereGeometry(0.055, 16, 16);
+      const nodeMaterial = new THREE.MeshBasicMaterial({ color: paper });
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: cyan,
+        transparent: true,
+        opacity: 0.2,
+      });
+
+      const nodePoints: ThreeNamespace.Vector3[] = [];
+      for (let i = 0; i < 14; i += 1) {
+        const angle = (i / 14) * Math.PI * 2;
+        const radius = 2.6 + (i % 4) * 0.32;
+        const point = new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle * 1.7) * 0.86, Math.sin(angle) * radius);
+        nodePoints.push(point);
+        const node = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
+        node.position.copy(point);
+        nodeGroup.add(node);
+      }
+
+      for (let i = 0; i < nodePoints.length; i += 1) {
+        const next = nodePoints[(i + 3) % nodePoints.length];
+        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([nodePoints[i], next]), lineMaterial.clone());
+        nodeGroup.add(line);
+      }
+
+      const handlePointer = (event: PointerEvent) => {
+        const rect = wrap.getBoundingClientRect();
+        pointer.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+        pointer.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      };
+
+      const resize = () => {
+        if (!renderer || !camera) return;
+        const rect = wrap.getBoundingClientRect();
+        const width = Math.max(1, Math.floor(rect.width));
+        const height = Math.max(1, Math.floor(rect.height));
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      };
+
+      resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(wrap);
+      wrap.addEventListener('pointermove', handlePointer);
+      resize();
+
+      const animate = (time: number) => {
+        if (disposed || !renderer || !scene || !camera) return;
+        const t = time * 0.001;
+        root.rotation.y = t * 0.12 + pointer.x * 0.16;
+        root.rotation.x = pointer.y * 0.08;
+        coreGroup.rotation.x = t * 0.18;
+        coreGroup.rotation.y = t * 0.22;
+        orbitGroup.rotation.z = t * 0.08;
+        orbitGroup.rotation.y = t * 0.06;
+        nodeGroup.rotation.y = -t * 0.1;
+        particles.rotation.y = t * 0.025;
+        renderer.render(scene, camera);
+        animationFrame = window.requestAnimationFrame(animate);
+      };
+
+      animationFrame = window.requestAnimationFrame(animate);
+
+      return () => {
+        wrap.removeEventListener('pointermove', handlePointer);
+      };
+    };
+
+    let removePointer: (() => void) | undefined;
+    void start().then((cleanup) => {
+      removePointer = cleanup;
+    });
+
+    return () => {
+      disposed = true;
+      removePointer?.();
+      window.cancelAnimationFrame(animationFrame);
+      resizeObserver?.disconnect();
+      renderer?.dispose();
+      scene?.traverse((object) => {
+        const disposable = object as ThreeNamespace.Object3D & {
+          geometry?: { dispose: () => void };
+          material?: { dispose: () => void } | Array<{ dispose: () => void }>;
+        };
+        disposable.geometry?.dispose();
+        if (Array.isArray(disposable.material)) {
+          disposable.material.forEach((material) => material.dispose());
+        } else {
+          disposable.material?.dispose();
+        }
+      });
+    };
+  }, []);
+
+  return (
+    <section className="three-system-scene" ref={wrapRef}>
+      <canvas ref={canvasRef} aria-label="Interactive 3D research network" />
+      <div className="three-system-copy">
+        <span>THREE.JS SYSTEM VIEW</span>
+        <p>Research signals, product systems, and machine learning experiments rendered as a live technical network.</p>
+      </div>
+    </section>
   );
 }
 

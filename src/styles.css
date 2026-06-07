@@ -1446,8 +1446,68 @@ svg {
   display: grid;
   grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
   gap: 52px;
-  margin-top: 74px;
+  margin-top: 52px;
   align-items: start;
+}
+
+.three-system-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(520px, 68vh, 820px);
+  margin-top: 72px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(34, 175, 255, 0.12), transparent 28rem),
+    radial-gradient(circle at 24% 28%, rgba(243, 240, 234, 0.06), transparent 22rem),
+    #030303;
+}
+
+.three-system-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.18;
+  background:
+    linear-gradient(90deg, transparent 0 98%, rgba(243, 240, 234, 0.14) 100%),
+    linear-gradient(0deg, transparent 0 98%, rgba(34, 175, 255, 0.16) 100%);
+  background-size: 82px 82px;
+  mask-image: radial-gradient(circle at 50% 48%, black, transparent 72%);
+}
+
+.three-system-scene canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.three-system-copy {
+  position: absolute;
+  left: clamp(22px, 4vw, 64px);
+  bottom: clamp(22px, 4vw, 58px);
+  z-index: 2;
+  width: min(520px, calc(100% - 44px));
+  pointer-events: none;
+}
+
+.three-system-copy span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--blue);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.three-system-copy p {
+  margin: 0;
+  color: rgba(243, 240, 234, 0.74);
+  font-family: 'Noto Sans JP', 'JetBrains Mono', sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.22rem);
+  line-height: 1.6;
 }
 
 .mini-cat-card {
@@ -1743,6 +1803,11 @@ svg {
     font-size: clamp(2rem, 12vw, 4.4rem);
   }
 
+  .three-system-scene {
+    height: 520px;
+    margin-top: 48px;
+  }
+
   .cat-stage {
     min-height: 92vh;
   }
@@ -1791,6 +1856,11 @@ svg {
   .thanks-single strong {
     font-size: clamp(4rem, 20vw, 8rem);
     line-height: 0.9;
+  }
+
+  .three-system-scene {
+    width: calc(100vw - 44px);
+    margin-left: 0;
   }
 
   .project-row {
