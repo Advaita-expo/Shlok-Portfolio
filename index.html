@@ -1,16 +1,257 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Shlok Chauhan portfolio: lead developer, technical intern, machine learning researcher, and campus leader."
-    />
-    <title>Shlok Chauhan | Lead Developer and Researcher</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Shlok Chauhan builds websites and tools for teams and helps businesses generate leads through Meta Ads.">
+  <meta property="og:title" content="Shlok Chauhan | Portfolio">
+  <meta property="og:description" content="Explore Shlok Chauhan’s work on websites, dashboards, and lead generation with Meta Ads.">
+  <meta property="og:type" content="website">
+  <title>Shlok Chauhan | Portfolio</title>
+  <link rel="preload" href="/assets/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <script type="module" src="/src/site.ts"></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="identity" href="#top" aria-label="Shlok Chauhan, home">
+      <span class="monogram" aria-hidden="true">SC</span>
+      <span>Shlok Chauhan</span>
+    </a>
+    <div class="header-actions">
+      <button class="menu" type="button" aria-controls="nav" aria-expanded="false" hidden>Menu<span aria-hidden="true"></span></button>
+      <nav id="nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a class="contact-link" href="#contact">Get in touch</a>
+      </nav>
+      <button class="theme-button" type="button" aria-label="Dark mode" aria-pressed="false" hidden><span class="theme-icon" aria-hidden="true"></span></button>
+      <button class="motion-button" type="button" hidden><span class="motion-icon" aria-hidden="true"></span><span class="motion-label">Pause motion</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="opening">
+      <section class="hero" aria-labelledby="title">
+        <div class="hero-frame">
+          <div class="hero-media media" data-media="hero" aria-hidden="true"><div class="film-poster"></div></div>
+          <div class="hero-content content-width">
+            <h1 id="title" aria-label="I build websites and tools that help teams get work done">I help teams<span class="hero-project-title" aria-hidden="true">publish stories.</span></h1>
+            <p class="hero-tagline">Every business is different, but software isn’t.</p>
+            <a class="hero-index" href="#project-voices"><span class="hero-project-link">View Somaiya Voices</span><span class="scroll-mark" aria-hidden="true"></span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro content-width" aria-label="Introduction">
+        <p class="statement">
+          <span class="statement-row" data-scroll-line><span class="line-content">Websites</span> <span class="film-slot" aria-hidden="true"></span> <span class="line-content">that tell</span></span>
+          <span class="statement-row" data-scroll-line><span class="line-content">people what you do.</span></span>
+          <span class="statement-row" data-scroll-line><span class="line-content">Tools</span> <span class="film-still media" data-media="intro" aria-hidden="true"></span> <em class="line-content">for daily work.</em></span>
+        </p>
+      </section>
+    </div>
+
+    <section class="work" aria-labelledby="work-title">
+      <div class="work-runway content-width" id="work">
+        <div class="work-stage">
+          <div class="section-head">
+            <h2 id="work-title" data-scroll-line><span class="line-content">Project</span> <em class="line-content">stories.</em></h2>
+            <div class="project-nav" aria-label="Project browsing" hidden>
+              <span class="project-scroll-hint">Scroll to browse</span>
+              <button type="button" data-project-step="-1" aria-controls="project-strip">Previous</button>
+              <button type="button" data-project-step="1" aria-controls="project-strip">Next</button>
+            </div>
+          </div>
+          <div class="projects" id="project-strip" role="region" aria-label="Featured projects" tabindex="0">
+            <article class="project" id="project-voices" data-feature-title="Somaiya Voices" data-feature-headline="publish stories" tabindex="-1">
+              <a class="project-art art-voices media" data-media="voices" href="https://voices.somaiya.edu/" aria-label="Visit the live Somaiya Voices homepage">
+                <img class="project-image" src="assets/somaiya-voices-home.jpg" alt="" loading="lazy" decoding="async">
+              </a>
+              <div class="project-body">
+                <p class="eyebrow">University media</p>
+                <h3 data-scroll-line><span class="line-content">Somaiya Voices</span></h3>
+                <p>I built a public website where Somaiya’s student newsroom can publish campus stories and newsletters in one place.</p>
+                <details>
+                  <summary>Project details<span aria-hidden="true"></span></summary>
+                  <div class="project-detail">
+                    <p>I also led content and public relations for the student media team.</p>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="project" id="project-mytruematch" data-feature-title="MyTrueMatch" data-feature-headline="build trust" tabindex="-1">
+              <div class="project-art art-mytruematch" aria-hidden="true">
+                <img class="project-image" src="assets/mytruematch-haldi.webp" alt="" loading="lazy" decoding="async">
+                <span class="mytruematch-word">MyTrueMatch</span>
+              </div>
+              <div class="project-body">
+                <p class="eyebrow">Technical Intern</p>
+                <h3 data-scroll-line><span class="line-content">MyTrueMatch</span></h3>
+                <p>I supported product features for a matrimony site where people can start their search with verified profiles.</p>
+                <a class="project-link" href="https://mytruematch.in/">Visit MyTrueMatch</a>
+              </div>
+            </article>
+
+            <article class="project" id="project-befrendle" data-feature-title="Befrendle" data-feature-headline="make plans" tabindex="-1">
+              <div class="project-art art-befrendle" aria-hidden="true">
+                <img class="project-image" src="assets/befrendle-home.webp" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="project-body">
+                <p class="eyebrow">Social platform</p>
+                <h3 data-scroll-line><span class="line-content">Befrendle</span></h3>
+                <p>I worked on the website that helps people make plans with friends and find clubs or events to join.</p>
+                <a class="project-link" href="https://befrendle.com/">Visit Befrendle</a>
+              </div>
+            </article>
+
+            <article class="project" id="project-qsentia" data-feature-title="QSentia" data-feature-headline="review signals" tabindex="-1">
+              <figure class="project-art art-qsentia media" data-media="qsentia">
+                <img class="project-image" src="assets/qsentia-dashboard.webp" alt="QSentia dashboard showing a strategy chart and risk controls" loading="lazy" decoding="async">
+                <figcaption class="project-image-caption">Prototype · Sample data</figcaption>
+              </figure>
+              <div class="project-body">
+                <p class="eyebrow">Investment platform</p>
+                <h3 data-scroll-line><span class="line-content">QSentia</span></h3>
+                <p>I helped build pages and dashboards where investment teams can review signals, evidence, and risk in one place.</p>
+                <details>
+                  <summary>Project details<span aria-hidden="true"></span></summary>
+                  <div class="project-detail">
+                    <p>I contributed to investor-facing pages, the customer portal, and internal tools.</p>
+                    <a href="https://qsentia.com/team">Meet the QSentia team</a>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="project" id="project-gcp" data-feature-title="Global Consulting" data-feature-headline="share expertise" tabindex="-1">
+              <div class="project-art art-gcp" aria-hidden="true">
+                <img class="project-image" src="assets/gcp-home.webp" alt="" loading="lazy" decoding="async">
+              </div>
+              <div class="project-body">
+                <p class="eyebrow">Web Development Intern</p>
+                <h3 data-scroll-line><span class="line-content">Global Consulting Professionals</span></h3>
+                <p>I helped make the firm’s services and expertise easier to explore on phones and desktops.</p>
+                <a class="project-link" href="https://advaita-expo.github.io/globalconsultingprofessionals.com/">View the consulting website</a>
+              </div>
+            </article>
+
+            <article class="project" id="project-research" data-feature-title="Student dropout" data-feature-headline="study dropout" tabindex="-1">
+              <div class="project-art art-research media" data-media="research" aria-hidden="true">
+                <div class="research-grid"></div>
+                <div class="research-dots"></div>
+                <span class="research-word">OULAD</span>
+              </div>
+              <div class="project-body">
+                <p class="eyebrow">Education research</p>
+                <h3 data-scroll-line><span class="line-content">Predicting student dropout</span></h3>
+                <p>I co-authored a study on spotting dropout risk in student learning records.</p>
+                <details>
+                  <summary>Project details<span aria-hidden="true"></span></summary>
+                  <div class="project-detail">
+                    <p>We compared approaches for datasets with relatively few dropout cases and presented our findings at IGNITE 2026.</p>
+                    <a href="https://lnkd.in/dHsmbJke">Read the paper</a>
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <article class="project" id="project-kasmo" data-feature-title="Kasmo Konnect" data-feature-headline="reduce admin" tabindex="-1">
+              <div class="project-art art-kasmo" aria-hidden="true">
+                <span class="kasmo-word">Kasmo<br>Konnect</span>
+              </div>
+              <div class="project-body">
+                <p class="eyebrow">Salesforce Developer Intern</p>
+                <h3 data-scroll-line><span class="line-content">Kasmo Konnect</span></h3>
+                <p>I helped configure Salesforce and automate recurring tasks for the team.</p>
+              </div>
+            </article>
+          </div>
+          <div class="project-progress" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="other-work content-width">
+        <h3>More projects</h3>
+        <details>
+          <summary>Stock forecasting experiments<span aria-hidden="true"></span></summary>
+          <p>I compared forecasts against actual prices to see how well they tracked Indian stocks.</p>
+        </details>
+        <details>
+          <summary>Somaiya Learning Management System<span aria-hidden="true"></span></summary>
+          <p>I built a dashboard that gives faculty one place to manage courses and track student progress.</p>
+        </details>
+        <details>
+          <summary>College Resource Management<span aria-hidden="true"></span></summary>
+          <p>I built a booking system so staff could manage access to shared campus resources and see how they were used.</p>
+          <a href="https://github.com/Advaita-expo/Resource-Management-">View the source on GitHub</a>
+        </details>
+      </div>
+    </section>
+
+    <section class="about content-width" id="about" aria-labelledby="about-title">
+      <div class="about-copy">
+        <p class="eyebrow section-label">About me</p>
+        <h2 id="about-title" data-scroll-line><span class="line-content">Hi, I'm</span> <em class="line-content">Shlok.</em></h2>
+        <p>I’m based in Mumbai. I build the pages people see first and the tools teams use behind the scenes. I also help businesses generate leads through paid campaigns.</p>
+      </div>
+      <figure class="portrait">
+        <img src="assets/shlok-photo.webp" width="780" height="938" alt="Shlok Chauhan in glasses and a black hoodie, holding an iPhone" loading="lazy" decoding="async">
+      </figure>
+    </section>
+
+    <section class="impact content-width" id="impact" aria-labelledby="impact-title">
+      <h2 id="impact-title" data-scroll-line><span class="line-content">Growth</span> <em class="line-content">results.</em></h2>
+      <div class="impact-grid">
+        <figure class="impact-result" data-scroll-line>
+          <p class="eyebrow">Meta Ads</p>
+          <span class="impact-metric line-content">+80%</span>
+          <figcaption>Increase in lead volume through Meta Ads.</figcaption>
+        </figure>
+        <div class="impact-method">
+          <h3>Conversion measurement</h3>
+          <p>Use lead submissions as the conversion event. Track lead volume, click-to-lead conversion rate, and cost per lead (CPL).</p>
+        </div>
+        <div class="impact-method">
+          <h3>Campaign testing</h3>
+          <p>Test audience segments and ad creatives separately. Use lead volume and CPL to decide which variants get more budget.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-reel-start" aria-hidden="true"></div>
+  <footer id="contact" class="footer">
+    <div class="content-width">
+      <div class="footer-main">
+        <h2 aria-label="What are you building?" data-scroll-line>
+          <span class="footer-heading-row">
+            <span class="line-content">What are you</span>
+            <span class="footer-film-slot" aria-hidden="true">
+              <span class="footer-film media" data-media="footer"></span>
+            </span>
+          </span>
+          <span class="footer-words line-content" aria-hidden="true">
+            <span class="footer-word">building?</span>
+            <span class="footer-word">designing?</span>
+            <span class="footer-word">launching?</span>
+          </span>
+        </h2>
+        <div class="footer-links">
+          <a href="mailto:workwithshlokc@gmail.com">workwithshlokc@gmail.com</a>
+          <div class="socials">
+            <a href="https://www.linkedin.com/in/shlok-chauhan-870133319/">LinkedIn</a>
+            <a href="https://github.com/Advaita-expo">GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© Shlok Chauhan</span>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+</body>
 </html>
